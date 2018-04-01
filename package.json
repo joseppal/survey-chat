@@ -1,0 +1,31 @@
+{
+  "name": "surveychat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "start": "npm run serve",
+    "build": "npm run build-ts && npm run tslint && npm run copy-static-assets",
+    "clean": "rm -R dist/",
+    "serve": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "copy-static-assets": "cp -R src/public/ dist/public/"
+  },
+  "author": "Jussi Seppala",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.8",
+    "@types/express": "^4.11.1",
+    "@types/node": "^9.6.1",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1"
+  }
+}

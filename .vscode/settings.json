@@ -1,0 +1,11 @@
+{
+  "files.insertFinalNewline": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "editor.renderWhitespace": "all",
+  "files.exclude": {
+    "dist":true,
+    "node_modules":true
+  }
+}
