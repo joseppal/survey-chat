@@ -5,14 +5,13 @@
   "main": "dist/server/index.js",
   "scripts": {
     "start": "npm run serve",
-    "build": "npm run build-ts && npm run tslint && npm run copy-static-assets",
+    "build": "npm run build-ts && npm run tslint",
     "clean": "rm -R dist/",
     "serve": "node dist/server.js",
     "test": "jest --forceExit --coverage --verbose",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "copy-static-assets": "cp -R src/public/ dist/public/"
+    "tslint": "tslint -c tslint.json -p tsconfig.json"
   },
   "author": "Jussi Seppala",
   "license": "UNLICENSED",

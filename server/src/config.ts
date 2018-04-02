@@ -1,4 +1,4 @@
 export default {
     PORT: process.env.PORT || 5000,
-    publicDir: "public"
+    publicDir: "../../client/dist"
 };
