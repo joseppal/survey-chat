@@ -1,0 +1,52 @@
+{
+  "name": "surveychat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "start": "npm run serve",
+    "postinstall": "npm run build",
+    "serve": "node server/dist/server.js",
+    "test": "npm run test-server",
+    "test-server": "jest --config server/jest.config.js --forceExit --coverage --verbose",
+    "build": "npm run build-server && npm run build-client",
+    "build-server": "npm run build-ts-server && npm run tslint-server",
+    "build-client": "webpack --config client/webpack.config.js && npm run build-client-styles && npm run tslint-client",
+    "build-client-styles": "sass client/src/styles/main.scss client/dist/main.css",
+    "clean": "npm run clean-server && npm run clean-client && rm -R coverage",
+    "clean-server": "rm -R server/dist/",
+    "clean-client": "rm -R client/dist/",
+    "build-ts-server": "tsc -p server/tsconfig.json",
+    "build-ts-client": "tsc -p client/tsconfig.json",
+    "tslint-server": "tslint -c tslint.json -p server/tsconfig.json",
+    "tslint-client": "tslint -c tslint.json -p client/tsconfig.json"
+  },
+  "author": "Jussi Seppala",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "pug": "^2.0.3",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.8",
+    "@types/express": "^4.11.1",
+    "@types/jest": "^22.2.2",
+    "@types/node": "^9.6.1",
+    "@types/react": "^16.3.1",
+    "@types/react-dom": "^16.0.4",
+    "@types/supertest": "^2.0.4",
+    "chai": "^4.1.2",
+    "jest": "^22.4.3",
+    "sass": "^1.1.1",
+    "supertest": "^3.0.0",
+    "ts-jest": "^22.4.2",
+    "ts-loader": "^4.1.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
+  }
+}
