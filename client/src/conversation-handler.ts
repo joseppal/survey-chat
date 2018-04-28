@@ -1,17 +1,19 @@
-import { Sender, MessageType, Option } from "./types";
 import * as _ from "lodash";
+import { Message, Sender, MessageType, Option } from "./types";
+import MessageQueue from "./utils/message-queue";
 
 export default class ConversationHandler {
   id: string;
   handleMessage: Function;
   conversation: any;
   currentNode: any;
+  messageQueue: MessageQueue;
 
   constructor() {}
 
   fetchAndRun(id: string, handleMessage: Function) {
     this.id = id;
-    this.handleMessage = handleMessage;
+    this.messageQueue = new MessageQueue(handleMessage);
     fetch(`/conversation/${this.id}`)
       .then((response) => {
         return response.json();
@@ -60,21 +62,19 @@ export default class ConversationHandler {
   }
 
   run(option?: Option) {
-    _.defer(() => {
-      let nextNode;
-      if (this.currentNode) {
-        nextNode = this.getNextNode(option);
-      } else {
-        nextNode = this.conversation[0];
-      }
-      this.currentNode = nextNode;
-      this.handleMessage(this.getMessage(), this.getOptions());
+    let nextNode;
+    if (this.currentNode) {
+      nextNode = this.getNextNode(option);
+    } else {
+      nextNode = this.conversation[0];
+    }
+    this.currentNode = nextNode;
+    this.messageQueue.addMessageToQueue(this.getMessage(), this.getOptions());
 
-      if (nextNode.children && nextNode.children.length > 0) {
-        if (nextNode.children.length === 1) {
-          this.run();
-        }
+    if (nextNode.children && nextNode.children.length > 0) {
+      if (nextNode.children.length === 1) {
+        this.run();
       }
-    });
+    }
   }
 }

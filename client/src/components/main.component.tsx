@@ -1,8 +1,10 @@
 import * as React from "react";
+import * as _ from "lodash";
 
 import MessageListComponent from "./message-list.component";
 import ConversationHandler from  "../conversation-handler";
 import { Message, MessageType, Option, Sender } from "../types";
+import spinner from "../utils/spinner-message";
 
 interface State {
   messages: Message[];
@@ -15,9 +17,7 @@ export default class MainComponent extends React.Component<any, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      messages: [
-        { sender: Sender.BOT, type: MessageType.SPINNER },
-      ],
+      messages: [spinner],
       options: []
     };
     this.conversationHandler = new ConversationHandler();
@@ -46,6 +46,9 @@ export default class MainComponent extends React.Component<any, State> {
 
   handleOptionSelect(option: Option) {
     this.handleMessage({text: option.text, sender: Sender.USER, type: MessageType.TEXT});
+    _.defer(() => {
+      this.handleMessage(spinner);
+    });
     this.conversationHandler.run(option);
   }
 
