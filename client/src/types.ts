@@ -13,7 +13,7 @@ type Message = {
 };
 type Option = {
   text: string
-  value: string
+  id: string
 };
 
 export {
