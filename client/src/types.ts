@@ -4,12 +4,14 @@ enum Sender {
 }
 enum MessageType {
   TEXT = "TEXT",
+  IMAGE = "IMAGE",
   SPINNER = "SPINNER"
 }
 type Message = {
   type: MessageType
-  text?: string
   sender: Sender
+  text?: string
+  url?: string
 };
 type Option = {
   text: string

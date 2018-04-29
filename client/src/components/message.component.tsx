@@ -35,6 +35,14 @@ export default class MessageComponent extends React.Component<Props, any> {
     );
   }
 
+  renderImage() {
+    return (
+      <div className={ this.getMessageClass() + " image-container"}>
+        <img src={this.props.message.url} />
+      </div>
+    );
+  }
+
   render() {
     switch (this.props.message.type) {
       case MessageType.SPINNER: {
@@ -42,6 +50,9 @@ export default class MessageComponent extends React.Component<Props, any> {
       }
       case MessageType.TEXT: {
         return this.renderText();
+      }
+      case MessageType.IMAGE: {
+        return this.renderImage();
       }
     }
   }

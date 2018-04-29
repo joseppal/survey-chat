@@ -35,7 +35,9 @@ $color-spinner: #888888;
   75% { opacity: 0.4; }
   100% { opacity: 0.4; }
 }
-
+* {
+  box-sizing: border-box;
+}
 html {
   font-size: 10px;
   font-family: Arial, Helvetica, sans-serif;
@@ -67,15 +69,24 @@ body {
     background-color: $color-msg-bg;
     border: 2px solid $color-msg-border;
     color: $color-msg-text;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 0.8rem 1.5rem;
     display: inline-block;
-    max-width: 80%;
+    max-width: 85%;
     &.user-message {
       float: right;
       background-color: $color-user-msg-bg;
       color: $color-user-msg-text;
       border-color: $color-user-msg-border;
+    }
+    &.image-container {
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+      padding: 0;
+      img {
+        max-width: 100%;
+        border-radius: 8px;
+      }
     }
   }
   .message.spinner {

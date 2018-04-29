@@ -10,11 +10,11 @@ export default class Dialogue {
     this.dialogueTree = dialogueTree;
   }
 
-  hasChildren() {
+  hasChildren(): boolean {
     return this.currentNode.children && this.currentNode.children.length > 0;
   }
 
-  hasOptions() {
+  hasOptions(): boolean {
     return this.currentNode.children && this.currentNode.children.length > 1;
   }
 
@@ -35,7 +35,7 @@ export default class Dialogue {
     return node;
   }
 
-  getOptions() {
+  getOptions(): Option[] {
     const res = [] as any;
     if (this.hasOptions()) {
       this.currentNode.children.forEach((child: any) => {
@@ -45,15 +45,16 @@ export default class Dialogue {
     return res;
   }
 
-  getMessage() {
+  getMessage(): Message {
     return {
       text: this.currentNode.text,
+      url: this.currentNode.url,
       type: this.currentNode.type,
       sender: Sender.BOT
     };
   }
 
-  stepToNextNode(option?: Option) {
+  stepToNextNode(option?: Option): void {
     let nextNode;
     if (this.currentNode) {
       nextNode = this.getNextNode(option);
