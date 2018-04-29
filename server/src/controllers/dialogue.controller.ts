@@ -1,28 +1,15 @@
 import { Request, Response } from "express";
-import * as _ from "lodash";
 
-import BEVERAGES_DIALOGUE from "../dialogues/tea-or-coffee";
-
-const dialogues = [
-  BEVERAGES_DIALOGUE
-];
-
-function loadDialogue(id: string) {
-  let dialogue = _.find(dialogues, (d: any) => {
-    return d.id === id;
-  });
-  if (dialogue == undefined) {
-    dialogue = {
-      id: "default",
-      dialogue: [{ text: "Hi, it seems like you have an invalid url!", type: "TEXT", id: "start" }]
-    };
-  }
-  return dialogue;
-}
+import Dialogue from "../models/dialogue.model";
+import notFoundDialogue from "../dialogues/not-found-dialogue";
 
 /**
  * GET /dialogue/:dialogueId
  */
 export let get = (req: Request, res: Response) => {
-  res.json(loadDialogue(req.params.dialogueId));
+  let dialogue = Dialogue.find(req.params.dialogueId);
+  if (!dialogue) {
+    dialogue = notFoundDialogue;
+  }
+  res.json(dialogue);
 };
