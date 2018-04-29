@@ -5,6 +5,7 @@ import MessageListComponent from "./message-list.component";
 import ConversationHandler from  "../conversation-handler";
 import { Message, MessageType, Option, Sender } from "../types";
 import spinner from "../utils/spinner-message";
+import urlSearchParams from "../utils/url-search-params";
 
 interface State {
   messages: Message[];
@@ -24,7 +25,8 @@ export default class MainComponent extends React.Component<any, State> {
   }
 
   componentDidMount() {
-    this.conversationHandler.fetchAndRun("tea-or-coffee", (message: Message, options?: Option[]) => {
+    const dialogueId = urlSearchParams.get("dialogue") || "unknown-dialogue";
+    this.conversationHandler.fetchAndRun(dialogueId, (message: Message, options?: Option[]) => {
       this.handleMessage(message, options);
     });
   }
