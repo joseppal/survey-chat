@@ -8,6 +8,7 @@ interface Props {
   messages: Message[];
   options: Option[];
   onOptionSelect: Function;
+  onImageLoaded: Function;
 }
 
 export default class MessageListComponent extends React.Component<Props, any> {
@@ -16,7 +17,7 @@ export default class MessageListComponent extends React.Component<Props, any> {
       <div className="message-list">
       {this.props.messages.map((msg: Message, i: number) => (
         <div className="message-container" key={i}>
-          <MessageComponent message={msg} />
+          <MessageComponent message={msg} onImageLoaded={() => this.props.onImageLoaded()} />
         </div>
       ))}
         <div className="options-container">

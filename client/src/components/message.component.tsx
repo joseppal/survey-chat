@@ -3,6 +3,7 @@ import { Message, MessageType, Sender } from "../types";
 
 interface Props {
   message: Message;
+  onImageLoaded: Function;
 }
 
 export default class MessageComponent extends React.Component<Props, any> {
@@ -38,7 +39,8 @@ export default class MessageComponent extends React.Component<Props, any> {
   renderImage() {
     return (
       <div className={ this.getMessageClass() + " image-container"}>
-        <img src={this.props.message.url} />
+        <img src={this.props.message.url}
+          onLoad={() => this.props.onImageLoaded()} />
       </div>
     );
   }

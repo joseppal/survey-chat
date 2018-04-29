@@ -14,6 +14,7 @@ interface State {
 
 export default class MainComponent extends React.Component<any, State> {
   dialogueManager: DialogueManager;
+  endEl: any;
 
   constructor(props: any) {
     super(props);
@@ -24,11 +25,20 @@ export default class MainComponent extends React.Component<any, State> {
     this.dialogueManager = new DialogueManager();
   }
 
+  scrollToBottom() {
+    this.endEl.scrollIntoView({ behavior: "smooth" });
+  }
+
   componentDidMount() {
     const dialogueId = urlSearchParams.get("dialogue") || "unknown-dialogue";
     this.dialogueManager.fetchAndRun(dialogueId, (message: Message, options?: Option[]) => {
       this.handleMessage(message, options);
     });
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   handleMessage(message: Message, options?: Option[]) {
@@ -60,7 +70,9 @@ export default class MainComponent extends React.Component<any, State> {
         <MessageListComponent
           messages={this.state.messages}
           options={this.state.options}
-          onOptionSelect={(option: Option) => this.handleOptionSelect(option)} />
+          onOptionSelect={(option: Option) => this.handleOptionSelect(option)}
+          onImageLoaded={() => this.scrollToBottom()} />
+        <div className="clear" ref={(el) => { this.endEl = el; }}></div>
       </div>
     );
   }

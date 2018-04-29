@@ -45,22 +45,28 @@ html {
 body {
   font-size: 1.6rem;
   margin: 0;
-  background-color: $color-black-tinted;
 }
 #main, .content {
-  background-color: white;
-  width: 100%;
-  max-width: 640px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  max-width: 480px;
   overflow: hidden;
 }
+.content-border {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 480px;
+  width: 2px;
+  background-color: $color-white-tinted;
+}
+@media (max-width: 480) {
+  .content-border {
+    display: none;
+  }
+}
+.clear {
+  clear: both;
+}
 .message-list {
-  overflow-y: scroll;
-  position: relative;
-  height: 100%;
   .message-container {
     margin: 1rem;
     overflow: hidden;
