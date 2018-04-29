@@ -23,7 +23,7 @@
     "tslint-client": "tslint -c tslint.json -p client/tsconfig.json"
   },
   "author": "Jussi Seppala",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
