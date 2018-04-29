@@ -1,5 +1,5 @@
 import { Message, Option } from "../types";
-import spinner from "./spinner-message";
+import spinner from "../utils/spinner-message";
 import * as _ from "lodash";
 
 const WRITING_SPEED = 1000;

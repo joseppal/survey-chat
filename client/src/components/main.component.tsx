@@ -2,7 +2,7 @@ import * as React from "react";
 import * as _ from "lodash";
 
 import MessageListComponent from "./message-list.component";
-import ConversationHandler from  "../conversation-handler";
+import DialogueManager from  "../dialogue-manager/dialogue-manager";
 import { Message, MessageType, Option, Sender } from "../types";
 import spinner from "../utils/spinner-message";
 import urlSearchParams from "../utils/url-search-params";
@@ -13,7 +13,7 @@ interface State {
 }
 
 export default class MainComponent extends React.Component<any, State> {
-  conversationHandler: ConversationHandler;
+  dialogueManager: DialogueManager;
 
   constructor(props: any) {
     super(props);
@@ -21,12 +21,12 @@ export default class MainComponent extends React.Component<any, State> {
       messages: [spinner],
       options: []
     };
-    this.conversationHandler = new ConversationHandler();
+    this.dialogueManager = new DialogueManager();
   }
 
   componentDidMount() {
     const dialogueId = urlSearchParams.get("dialogue") || "unknown-dialogue";
-    this.conversationHandler.fetchAndRun(dialogueId, (message: Message, options?: Option[]) => {
+    this.dialogueManager.fetchAndRun(dialogueId, (message: Message, options?: Option[]) => {
       this.handleMessage(message, options);
     });
   }
@@ -51,7 +51,7 @@ export default class MainComponent extends React.Component<any, State> {
     _.defer(() => {
       this.handleMessage(spinner);
     });
-    this.conversationHandler.run(option);
+    this.dialogueManager.run(option);
   }
 
   render() {

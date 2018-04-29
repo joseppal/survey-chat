@@ -1,11 +1,11 @@
 import * as _ from "lodash";
-import { Message, Sender, MessageType, Option } from "./types";
-import MessageQueue from "./utils/message-queue";
+import { Message, Sender, MessageType, Option } from "../types";
+import MessageQueue from "./message-queue";
 
-export default class ConversationHandler {
+export default class DialogueManager {
   id: string;
   handleMessage: Function;
-  conversation: any;
+  dialogue: any;
   currentNode: any;
   messageQueue: MessageQueue;
 
@@ -14,12 +14,12 @@ export default class ConversationHandler {
   fetchAndRun(id: string, handleMessage: Function) {
     this.id = id;
     this.messageQueue = new MessageQueue(handleMessage);
-    fetch(`/conversation/${this.id}`)
+    fetch(`/dialogue/${this.id}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        this.conversation = data.conversation;
+        this.dialogue = data.dialogue;
         this.run();
       });
   }
@@ -66,7 +66,7 @@ export default class ConversationHandler {
     if (this.currentNode) {
       nextNode = this.getNextNode(option);
     } else {
-      nextNode = this.conversation[0];
+      nextNode = this.dialogue[0];
     }
     this.currentNode = nextNode;
     this.messageQueue.addMessageToQueue(this.getMessage(), this.getOptions());

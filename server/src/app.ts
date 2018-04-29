@@ -5,7 +5,7 @@ import path from "path";
 import config from "./config";
 
 import * as clientController from "./controllers/client.controller";
-import * as conversationController from "./controllers/conversation.controller";
+import * as dialogueController from "./controllers/dialogue.controller";
 
 
 const app = express();
@@ -17,7 +17,7 @@ app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
 
 app.get("/", clientController.get);
-app.get("/conversation/:conversationId", conversationController.get);
+app.get("/dialogue/:dialogueId", dialogueController.get);
 
 app.use(express.static(path.join(__dirname, config.publicDir)));
 
