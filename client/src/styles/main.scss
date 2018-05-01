@@ -15,6 +15,9 @@ $color-option-text: $color-black-tinted;
 
 $color-spinner: #888888;
 
+$color-button-bg: $color-black-tinted;
+$color-button: #ffffff;
+
 @keyframes spinner1 {
   0% { opacity: 1; } // dark
   25% { opacity: 0.4; }
@@ -71,13 +74,17 @@ body {
     margin: 1rem;
     overflow: hidden;
   }
-  .message {
+  .message.text,
+  .message.spinner,
+  .message.image-container {
     background-color: $color-msg-bg;
     border: 2px solid $color-msg-border;
     color: $color-msg-text;
     border-radius: 8px;
     padding: 0.8rem 1.5rem;
     display: inline-block;
+  }
+  .message {
     max-width: 85%;
     &.user-message {
       float: right;
@@ -94,31 +101,43 @@ body {
         border-radius: 8px;
       }
     }
-  }
-  .message.spinner {
-    text-align: center;
-    transition: opacity 0.3s;
-    opacity: 1;
-    .dot {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      margin: 0 2px;
-      background-color: $color-spinner;
-      border-radius: 100px;
-      animation-iteration-count: infinite;
+    &.button {
+      a {
+        border-radius: 1000px;
+        background-color: $color-button-bg;
+        color: $color-button;
+        display: inline-block;
+        padding: 1rem 1.5rem;
+        text-align: center;
+        min-width: 125px;
+        text-decoration: none;
+      }
     }
-    .dot1 {
-      animation: spinner1 0.9s linear;
-      animation-iteration-count: infinite;
-    }
-    .dot2 {
-      animation: spinner2 0.9s linear;
-      animation-iteration-count: infinite;
-    }
-    .dot3 {
-      animation: spinner3 0.9s linear;
-      animation-iteration-count: infinite;
+    &.spinner {
+      text-align: center;
+      transition: opacity 0.3s;
+      opacity: 1;
+      .dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        margin: 0 2px;
+        background-color: $color-spinner;
+        border-radius: 100px;
+        animation-iteration-count: infinite;
+      }
+      .dot1 {
+        animation: spinner1 0.9s linear;
+        animation-iteration-count: infinite;
+      }
+      .dot2 {
+        animation: spinner2 0.9s linear;
+        animation-iteration-count: infinite;
+      }
+      .dot3 {
+        animation: spinner3 0.9s linear;
+        animation-iteration-count: infinite;
+      }
     }
   }
   .options-container {
@@ -129,7 +148,7 @@ body {
   .option {
     color: $color-option-text;
     display: inline-block;
-    padding: 0.8rem 1.5rem;
+    padding: 1rem 1.5rem;
     margin: 1rem;
     border-radius: 1000px;
     border: 2px solid $color-option-border;

@@ -14,7 +14,7 @@ export default class MessageImageComponent extends React.Component<Props, any> {
           onLoad={() => this.props.onContentLoaded()} />
     );
     const content = this.props.message.link ? (
-      <a href={this.props.message.link} target="_blank">{image}</a>
+      <a href={this.props.message.link} target={this.props.message.target || "_blank"}>{image}</a>
     ) : image;
     return (
       <div className={ "message bot-message image-container"}>

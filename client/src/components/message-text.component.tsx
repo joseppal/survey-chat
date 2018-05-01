@@ -7,7 +7,7 @@ interface Props {
 
 export default class MessageTextComponent extends React.Component<Props, any> {
   getMessageClass(): string {
-    let className = "message";
+    let className = "message text";
     if (this.props.message.sender == Sender.USER) {
       className += " user-message";
     } else {
