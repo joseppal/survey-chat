@@ -6,7 +6,7 @@ enum MessageType {
   TEXT = "TEXT",
   IMAGE = "IMAGE",
   SPINNER = "SPINNER",
-  BUTTON = "BUTTON"
+  LINK = "LINK"
 }
 type Message = {
   type: MessageType
@@ -15,6 +15,7 @@ type Message = {
   url?: string
   link?: string
   target?: string
+  style?: string
 };
 type Option = {
   text: string

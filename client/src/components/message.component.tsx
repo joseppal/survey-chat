@@ -3,7 +3,7 @@ import { Message, MessageType } from "../types";
 import Spinner from "./message-spinner.component";
 import Text from "./message-text.component";
 import Image from "./message-image.component";
-import Button from "./message-button.component";
+import Link from "./message-link.component";
 
 interface Props {
   message: Message;
@@ -23,8 +23,8 @@ export default class MessageComponent extends React.Component<Props, any> {
       case MessageType.IMAGE: {
         return (<Image message={ this.props.message } onContentLoaded={ this.props.onContentLoaded } />);
       }
-      case MessageType.BUTTON: {
-        return (<Button message={ this.props.message } />);
+      case MessageType.LINK: {
+        return (<Link message={ this.props.message } />);
       }
     }
   }

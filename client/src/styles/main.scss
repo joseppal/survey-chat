@@ -18,6 +18,8 @@ $color-spinner: #888888;
 $color-button-bg: $color-black-tinted;
 $color-button: #ffffff;
 
+$color-link: #5823d4;
+
 @keyframes spinner1 {
   0% { opacity: 1; } // dark
   25% { opacity: 0.4; }
@@ -101,8 +103,8 @@ body {
         border-radius: 8px;
       }
     }
-    &.button {
-      a {
+    &.link {
+      a.button {
         border-radius: 1000px;
         background-color: $color-button-bg;
         color: $color-button;
@@ -111,6 +113,12 @@ body {
         text-align: center;
         min-width: 125px;
         text-decoration: none;
+      }
+      a.link {
+        color: $color-link;
+        display: inline-block;
+        padding: 1rem 1.5rem;
+        text-decoration: underline;
       }
     }
     &.spinner {
