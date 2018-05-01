@@ -4,6 +4,7 @@ import Spinner from "./message-spinner.component";
 import Text from "./message-text.component";
 import Image from "./message-image.component";
 import Link from "./message-link.component";
+import YouTube from "./message-video-youtube.component";
 
 interface Props {
   message: Message;
@@ -25,6 +26,9 @@ export default class MessageComponent extends React.Component<Props, any> {
       }
       case MessageType.LINK: {
         return (<Link message={ this.props.message } />);
+      }
+      case MessageType.YOUTUBE: {
+        return (<YouTube message={ this.props.message } />);
       }
     }
   }

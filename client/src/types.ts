@@ -6,7 +6,8 @@ enum MessageType {
   TEXT = "TEXT",
   IMAGE = "IMAGE",
   SPINNER = "SPINNER",
-  LINK = "LINK"
+  LINK = "LINK",
+  YOUTUBE = "YOUTUBE"
 }
 type Message = {
   type: MessageType
@@ -16,6 +17,8 @@ type Message = {
   link?: string
   target?: string
   style?: string
+  video?: string
+  autoplay?: boolean
 };
 type Option = {
   text: string

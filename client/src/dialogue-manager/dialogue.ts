@@ -53,6 +53,8 @@ export default class Dialogue {
       type: this.currentNode.type,
       target: this.currentNode.target,
       style: this.currentNode.style,
+      video: this.currentNode.video,
+      autoplay: this.currentNode.autoplay,
       sender: Sender.BOT
     };
   }
