@@ -71,7 +71,7 @@ export default class MainComponent extends React.Component<any, State> {
           messages={this.state.messages}
           options={this.state.options}
           onOptionSelect={(option: Option) => this.handleOptionSelect(option)}
-          onImageLoaded={() => this.scrollToBottom()} />
+          onContentLoaded={() => this.scrollToBottom()} />
         <div className="clear" ref={(el) => { this.endEl = el; }}></div>
       </div>
     );

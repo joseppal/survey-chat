@@ -49,6 +49,7 @@ export default class Dialogue {
     return {
       text: this.currentNode.text,
       url: this.currentNode.url,
+      link: this.currentNode.link,
       type: this.currentNode.type,
       sender: Sender.BOT
     };

@@ -12,6 +12,7 @@ type Message = {
   sender: Sender
   text?: string
   url?: string
+  link?: string
 };
 type Option = {
   text: string
