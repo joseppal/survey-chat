@@ -1,11 +1,7 @@
 // TODO: Replace this with real model
 import * as _ from "lodash";
 
-import EXAMPLE_DIALOGUE from "../dialogues/example-dialogue";
-
-const dialogues = [
-  EXAMPLE_DIALOGUE
-];
+import dialogues from "../dialogues/dialogues";
 
 function find(id: string) {
   return _.find(dialogues, (d: any) => {
