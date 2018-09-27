@@ -7,7 +7,8 @@ enum MessageType {
   IMAGE = "IMAGE",
   SPINNER = "SPINNER",
   LINK = "LINK",
-  YOUTUBE = "YOUTUBE"
+  YOUTUBE = "YOUTUBE",
+  OPTIONS = "OPTIONS"
 }
 type Message = {
   type: MessageType
@@ -23,6 +24,7 @@ type Message = {
 type Option = {
   text: string
   id: string
+  goto: string
 };
 
 export {

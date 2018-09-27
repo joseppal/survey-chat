@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
 
 import Dialogue from "../models/dialogue.model";
-import notFoundDialogue from "../dialogues/not-found-dialogue";
 
 /**
  * GET /dialogue/:dialogueId
  */
 export let get = (req: Request, res: Response) => {
-  let dialogue = Dialogue.find(req.params.dialogueId);
-  if (!dialogue) {
-    dialogue = notFoundDialogue;
+  let dialogueBranch = Dialogue.find(req.params.dialogueId, req.params.nodeId);
+  if (!dialogueBranch) {
+    dialogueBranch = [
+      { text: "Hi, it seems like you have an invalid url!", type: "TEXT", id: "1" }
+    ];
   }
-  res.json(dialogue);
+  res.json(dialogueBranch);
 };

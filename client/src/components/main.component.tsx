@@ -15,6 +15,7 @@ interface State {
 export default class MainComponent extends React.Component<any, State> {
   dialogueManager: DialogueManager;
   endEl: any;
+  dialogueId: string;
 
   constructor(props: any) {
     super(props);
@@ -22,7 +23,11 @@ export default class MainComponent extends React.Component<any, State> {
       messages: [spinner],
       options: []
     };
-    this.dialogueManager = new DialogueManager();
+    this.dialogueManager = new DialogueManager((message: Message) => {
+      this.handleMessage(message);
+    }, (options: Option[]) => {
+      this.handleOptions(options);
+    });
   }
 
   scrollToBottom() {
@@ -30,10 +35,9 @@ export default class MainComponent extends React.Component<any, State> {
   }
 
   componentDidMount() {
-    const dialogueId = urlSearchParams.get("dialogue") || "unknown-dialogue";
-    this.dialogueManager.fetchAndRun(dialogueId, (message: Message, options?: Option[]) => {
-      this.handleMessage(message, options);
-    });
+    this.dialogueId = urlSearchParams.get("dialogue") || "unknown-dialogue";
+    const nodeId = urlSearchParams.get("node") || "0";
+    this.dialogueManager.fetchAndRun(this.dialogueId, nodeId);
     this.scrollToBottom();
   }
 
@@ -41,7 +45,7 @@ export default class MainComponent extends React.Component<any, State> {
     this.scrollToBottom();
   }
 
-  handleMessage(message: Message, options?: Option[]) {
+  handleMessage(message: Message) {
     const last = this.state.messages.length - 1;
     let messages;
     if (this.state.messages[last].type === MessageType.SPINNER) {
@@ -52,7 +56,14 @@ export default class MainComponent extends React.Component<any, State> {
     messages.push(message);
     this.setState({
       messages: messages,
-      options: options || []
+      options: []
+    });
+  }
+
+  handleOptions(options: Option[]) {
+    this.setState({
+      messages: this.state.messages.slice(),
+      options: options
     });
   }
 
@@ -61,7 +72,7 @@ export default class MainComponent extends React.Component<any, State> {
     _.defer(() => {
       this.handleMessage(spinner);
     });
-    this.dialogueManager.run(option);
+    this.dialogueManager.fetchAndRun(this.dialogueId, option.goto);
   }
 
   render() {

@@ -1,39 +1,55 @@
 import * as _ from "lodash";
-import { Message, Sender, MessageType, Option } from "../types";
-import MessageQueue from "./message-queue";
-import Dialogue from "./dialogue";
+import { Message, Sender, MessageType } from "../types";
 
 export default class DialogueManager {
-  id: string;
   handleMessage: Function;
-  dialogue: Dialogue;
-  messageQueue: MessageQueue;
+  handleOptions: Function;
+  dialogueBranch: Array<any>;
 
-  constructor() {}
+  constructor(handleMessage: Function, handleOptions: Function) {
+    this.handleMessage = handleMessage;
+    this.handleOptions = handleOptions;
+  }
 
-  fetchAndRun(id: string, handleMessage: Function) {
-    this.id = id;
-    this.messageQueue = new MessageQueue(handleMessage);
-    fetch(`/dialogue/${this.id}`)
+  fetchAndRun(dialogueId: string, nodeId: string) {
+    fetch(`/api/dialogue/${dialogueId}/node/${nodeId}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        this.dialogue = new Dialogue(data.dialogue);
-        this.run();
+        this.dialogueBranch = data;
+        this.run(0);
       });
   }
 
+  createMessage(node: any): Message {
+    return {
+      text: node.text,
+      url: node.url,
+      link: node.link,
+      type: node.type,
+      target: node.target,
+      style: node.style,
+      video: node.video,
+      autoplay: node.autoplay,
+      sender: Sender.BOT
+    };
+  }
 
-  run(option?: Option) {
-    this.dialogue.stepToNextNode(option);
-    const message = this.dialogue.getMessage();
-    const options = this.dialogue.getOptions();
-    this.messageQueue.addMessageToQueue(message, options);
-    if (this.dialogue.hasChildren()) {
-      if (!this.dialogue.hasOptions()) {
-        this.run();
-      }
+  run(index: number) {
+    if (index >= this.dialogueBranch.length) {
+      return;
+    }
+    const node = this.dialogueBranch[index];
+    if (node.type == MessageType.OPTIONS) {
+      _.delay(() => {
+        this.handleOptions(node.options);
+      }, 500);
+    } else {
+      _.delay(() => {
+        this.handleMessage(this.createMessage(node));
+        this.run(index + 1);
+      }, 1000);
     }
   }
 }

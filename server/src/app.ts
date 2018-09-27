@@ -17,7 +17,7 @@ app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
 
 app.get("/", clientController.get);
-app.get("/dialogue/:dialogueId", dialogueController.get);
+app.get("/api/dialogue/:dialogueId/node/:nodeId", dialogueController.get);
 
 app.use(express.static(path.join(__dirname, config.publicDir)));
 
