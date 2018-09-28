@@ -1,21 +1,37 @@
 import * as _ from "lodash";
-import { Message, Sender, MessageType } from "../types";
+import { Message, Sender, MessageType, Option } from "../types";
 
 export default class DialogueManager {
   handleMessage: Function;
   handleOptions: Function;
+  dialogueId: string;
   dialogueBranch: Array<any>;
 
-  constructor(handleMessage: Function, handleOptions: Function) {
+  constructor(dialogueId: string, handleMessage: Function, handleOptions: Function) {
     this.handleMessage = handleMessage;
     this.handleOptions = handleOptions;
+    this.dialogueId = dialogueId;
   }
 
-  fetchAndRun(dialogueId: string, nodeId: string) {
-    fetch(`/api/dialogue/${dialogueId}/node/${nodeId}`)
-      .then((response) => {
-        return response.json();
-      })
+  fetchAndRun() {
+    fetch(`/api/dialogue/${this.dialogueId}`)
+      .then(res => res.json())
+      .then((data) => {
+        this.dialogueBranch = data;
+        this.run(0);
+      });
+  }
+
+  selectOption(option: Option) {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({id: option.id}),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    fetch(`/api/dialogue/${this.dialogueId}/option`, options)
+      .then(res => res.json())
       .then((data) => {
         this.dialogueBranch = data;
         this.run(0);

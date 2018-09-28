@@ -15,7 +15,6 @@ interface State {
 export default class MainComponent extends React.Component<any, State> {
   dialogueManager: DialogueManager;
   endEl: any;
-  dialogueId: string;
 
   constructor(props: any) {
     super(props);
@@ -23,7 +22,8 @@ export default class MainComponent extends React.Component<any, State> {
       messages: [spinner],
       options: []
     };
-    this.dialogueManager = new DialogueManager((message: Message) => {
+    const dialogueId = urlSearchParams.get("dialogue") || "unknown-dialogue";
+    this.dialogueManager = new DialogueManager(dialogueId, (message: Message) => {
       this.handleMessage(message);
     }, (options: Option[]) => {
       this.handleOptions(options);
@@ -35,9 +35,7 @@ export default class MainComponent extends React.Component<any, State> {
   }
 
   componentDidMount() {
-    this.dialogueId = urlSearchParams.get("dialogue") || "unknown-dialogue";
-    const nodeId = urlSearchParams.get("node") || "0";
-    this.dialogueManager.fetchAndRun(this.dialogueId, nodeId);
+    this.dialogueManager.fetchAndRun();
     this.scrollToBottom();
   }
 
@@ -72,7 +70,7 @@ export default class MainComponent extends React.Component<any, State> {
     _.defer(() => {
       this.handleMessage(spinner);
     });
-    this.dialogueManager.fetchAndRun(this.dialogueId, option.goto);
+    this.dialogueManager.selectOption(option);
   }
 
   render() {

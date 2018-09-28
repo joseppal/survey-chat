@@ -3,16 +3,10 @@ import * as _ from "lodash";
 
 import dialogues from "../dialogues/dialogues";
 
-function find(dialogueId: string, nodeId: string) {
-  let ret = _.find(dialogues, (dialogue: any) => {
-    return dialogue.id === dialogueId;
+function find(dialogueId: string) {
+  return _.find(dialogues, (d: any) => {
+    return d.id === dialogueId;
   });
-  if (ret && ret.dialogue) {
-    ret = _.find(ret.dialogue, (branch: any) => {
-      return branch[0] && branch[0].id == nodeId;
-    });
-  }
-  return ret;
 }
 
 export default {

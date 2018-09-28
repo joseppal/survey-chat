@@ -24,7 +24,6 @@ type Message = {
 type Option = {
   text: string
   id: string
-  goto: string
 };
 
 export {
