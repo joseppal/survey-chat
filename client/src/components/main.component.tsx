@@ -24,9 +24,9 @@ export default class MainComponent extends React.Component<any, State> {
     };
     const dialogueId = urlSearchParams.get("dialogue") || "unknown-dialogue";
     this.dialogueManager = new DialogueManager(dialogueId, (message: Message) => {
-      this.handleMessage(message);
+      this.showMessage(message);
     }, (options: Option[]) => {
-      this.handleOptions(options);
+      this.showOptions(options);
     });
   }
 
@@ -43,7 +43,7 @@ export default class MainComponent extends React.Component<any, State> {
     this.scrollToBottom();
   }
 
-  handleMessage(message: Message) {
+  showMessage(message: Message) {
     const last = this.state.messages.length - 1;
     let messages;
     if (this.state.messages[last].type === MessageType.SPINNER) {
@@ -58,7 +58,7 @@ export default class MainComponent extends React.Component<any, State> {
     });
   }
 
-  handleOptions(options: Option[]) {
+  showOptions(options: Option[]) {
     this.setState({
       messages: this.state.messages.slice(),
       options: options
@@ -66,9 +66,9 @@ export default class MainComponent extends React.Component<any, State> {
   }
 
   handleOptionSelect(option: Option) {
-    this.handleMessage({text: option.text, sender: Sender.USER, type: MessageType.TEXT});
+    this.showMessage({text: option.text, sender: Sender.USER, type: MessageType.TEXT});
     _.defer(() => {
-      this.handleMessage(spinner);
+      this.showMessage(spinner);
     });
     this.dialogueManager.selectOption(option);
   }

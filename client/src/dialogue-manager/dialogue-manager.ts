@@ -2,14 +2,14 @@ import * as _ from "lodash";
 import { Message, Sender, MessageType, Option } from "../types";
 
 export default class DialogueManager {
-  handleMessage: Function;
-  handleOptions: Function;
+  showMessage: Function;
+  showOptions: Function;
   dialogueId: string;
   dialogueBranch: Array<any>;
 
-  constructor(dialogueId: string, handleMessage: Function, handleOptions: Function) {
-    this.handleMessage = handleMessage;
-    this.handleOptions = handleOptions;
+  constructor(dialogueId: string, showMessage: Function, showOptions: Function) {
+    this.showMessage = showMessage;
+    this.showOptions = showOptions;
     this.dialogueId = dialogueId;
   }
 
@@ -59,11 +59,11 @@ export default class DialogueManager {
     const node = this.dialogueBranch[index];
     if (node.type == MessageType.OPTIONS) {
       _.delay(() => {
-        this.handleOptions(node.options);
+        this.showOptions(node.options);
       }, 500);
     } else {
       _.delay(() => {
-        this.handleMessage(this.createMessage(node));
+        this.showMessage(this.createMessage(node));
         this.run(index + 1);
       }, 1000);
     }
