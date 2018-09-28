@@ -43,14 +43,19 @@ export default class MainComponent extends React.Component<any, State> {
     this.scrollToBottom();
   }
 
-  showMessage(message: Message) {
-    const last = this.state.messages.length - 1;
+  private copyMessagesWithoutSpinner() {
     let messages;
+    const last = this.state.messages.length - 1;
     if (this.state.messages[last].type === MessageType.SPINNER) {
       messages = this.state.messages.slice(0, last);
     } else {
       messages = this.state.messages.slice();
     }
+    return messages;
+  }
+
+  showMessage(message: Message) {
+    const messages = this.copyMessagesWithoutSpinner();
     messages.push(message);
     this.setState({
       messages: messages,
@@ -60,7 +65,7 @@ export default class MainComponent extends React.Component<any, State> {
 
   showOptions(options: Option[]) {
     this.setState({
-      messages: this.state.messages.slice(),
+      messages: this.copyMessagesWithoutSpinner(),
       options: options
     });
   }
